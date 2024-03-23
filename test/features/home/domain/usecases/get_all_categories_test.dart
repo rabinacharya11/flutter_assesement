@@ -7,41 +7,45 @@ import 'package:mockito/mockito.dart';
 import '../../../../helpers/test_helper.mocks.dart';
 
 void main() {
+  /// dependencies
   late GetAllCategoriesUserCase usecase;
   late MockCategoryRepository mockCategoryRepository;
 
+  /// setup for test cases
   setUp(() {
     mockCategoryRepository = MockCategoryRepository();
     usecase = GetAllCategoriesUserCase(mockCategoryRepository);
   });
 
+  /// dummy data for list of categories
   const categories = [
     CategoryEntity(
       id: '12324fdf',
       name: "Category 1",
-      image: '',
+      image: 'image_url',
     ),
     CategoryEntity(
       id: '12324fdf',
       name: "Category 2",
-      image: '',
+      image: 'image_url',
     ),
     CategoryEntity(
       id: '12324fdf',
       name: "Category 3",
-      image: '',
+      image: 'image_url',
     ),
   ];
 
   test('should get all the categories', () async {
-// arrange
+    // arrange
+
     when(mockCategoryRepository.getCategories())
         .thenAnswer((_) async => const Right(categories));
     // act
 
     final result = await usecase.call();
 
-// assert
+    // assert
 
     expect(result, const Right(categories));
   });
